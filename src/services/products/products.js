@@ -21,6 +21,8 @@ router.get("/:id", async (req, res) => {
     let product = products.find(product => product._id === req.params.id)
     if (product) {
         res.send(product)
+    }else {
+        res.status("404").send("Product not found")
     }
 })
 
