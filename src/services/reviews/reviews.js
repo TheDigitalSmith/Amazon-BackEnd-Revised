@@ -40,8 +40,8 @@ router.post("/", async(req,res)=>{
 })
 
 router.delete("/:id", async (req,res)=>{
-    const reviews = await readData();
-    let reviewsToStay = reviews.filter(review => review._id != req.params.id)
+    const reviews =  await readData();
+    let reviewsToStay = reviews.filter(review => review._id !== req.params.id)
     if (reviewsToStay.length < reviews.length){
         await fs.writeFile(reviewsFilePath, JSON.stringify(reviewsToStay))
         res.send("removed")
