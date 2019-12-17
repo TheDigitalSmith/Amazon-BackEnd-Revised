@@ -20,11 +20,12 @@ const readProductsData = async () => {
     return JSON.parse(content)
 }
 router.get("/", async (req, res) => {
+    console.log(res.sendAt)
     const reviews = await readFile();
     res.send(reviews);
 })
 
-router.use("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     const reviews = await readFile();
     const review = reviews.find(review => review._id == req.params.id);
     if (review) {
@@ -35,6 +36,7 @@ router.use("/:id", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
+    
     const products = await readProductsData();
     const previousReviews = await readFile();
     const reviewForProduct = products.find(product => product._id === req.body.elementId);
@@ -54,8 +56,10 @@ router.post("/", async (req, res) => {
 })
 
 router.delete("/:id", async (req, res) => {
+    console.log("test")
     const reviews = await readFile();
     let reviewsToRemain = reviews.filter(review => review._id !== req.params.id);
+    console.log(reviewsToRemain, reviewsToRemain.length, reviews.length)
     if (reviewsToRemain.length < reviews.length) {
         await fs.writeFile(reviewsFilePath, JSON.stringify(reviewsToRemain));
         res.send("removed");
