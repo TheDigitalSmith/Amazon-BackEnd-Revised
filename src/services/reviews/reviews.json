@@ -1,26 +1,10 @@
 [
     {
-        "comment": "Still An Overpriced smartphone",
+        "comment": "Still An Overpriced smartphone and not functional",
         "rate": 3,
-        "_id": "9f34334a-141e-4b8c-b4be-0b135048eed8",
-        "createdAt": "2019-12-16T18:05:17.561Z"
-    },
-    {
-        "comment": "Still An Overpriced equipment",
-        "rate": 3,
-        "_id": "1868646f-b6bb-4890-a515-887e764a0c5c",
-        "createdAt": "2019-12-16T18:05:28.513Z"
-    },
-    {
-        "comment": "product was delivered late",
-        "rate": 3,
-        "_id": "cba65767-9eac-4f72-8bc0-10ff7feadc75",
-        "createdAt": "2019-12-16T18:06:19.878Z"
-    },
-    {
-        "comment": "perfect phone smartphone",
-        "rate": 5,
-        "_id": "26078818-27b9-4d36-a0fa-cdf6c5e99654",
-        "createdAt": "2019-12-17T04:55:28.256Z"
+        "elementId": "f407eca0-201a-11ea-b8e1-d12a888be877",
+        "_id": "8c514d05-3686-475a-a845-1180642da29c",
+        "createdAt": "2019-12-17T14:50:44.974Z",
+        "updatedAt": "2019-12-17T14:47:44.316Z"
     }
 ]

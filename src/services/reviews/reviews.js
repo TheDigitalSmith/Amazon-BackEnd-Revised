@@ -6,7 +6,7 @@ const fs = require("fs-extra");
 const path = require("path");
 
 const reviewsFilePath = path.join(__dirname, "reviews.json")
-const productsFilePath = path.join(__dirname, "../products.json")
+const productsFilePath = path.join(__dirname, "../products/products.json")
 
 const readFile = async () => {
     const buffer = await fs.readFile(reviewsFilePath)
