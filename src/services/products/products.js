@@ -21,14 +21,14 @@ const readReviewsFile = async () =>{
 }
 
 router.get("/", async (req, res) => {
-    const products = readFile();
+    const products = await readFile();
     if (Object.keys(req.query).length !=0){
     let filteredProducts = products.filter(product => 
-        product.hasOwnProperty(category) && 
+        product.hasOwnProperty("category") && 
         product.category.toLowerCase() == req.query.category.toLowerCase())
         res.send(filteredProducts)
     }else{
-    res.send(await readFile());
+    res.send(products);
     }
 })
 
