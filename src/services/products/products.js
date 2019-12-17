@@ -67,7 +67,7 @@ router.post("/", async (req, res) => {
 })
 
 const multerConfig = multer({});
-router.post("/id/upload", multerConfig.single("prodPic"), async (req, res) => {
+router.post("/:id/upload", multerConfig.single("prodPic"), async (req, res) => {
     const products = await readFile();
     const product = products.find(product => product._id == req.params.id)
     if (product) {
