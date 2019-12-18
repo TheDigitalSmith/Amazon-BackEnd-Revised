@@ -71,7 +71,7 @@ router.post("/:id/upload", multerConfig.single("prodPic"), async (req, res) => {
     const products = await readFile();
     const product = products.find(product => product._id == req.params.id)
     if (product) {
-        const filedestination = path.join(__dirname,"../../images", req.params.id + path.extname(req.file.originalname))
+        const filedestination = path.join(__dirname,"../../../images", req.params.id + path.extname(req.file.originalname))
         await fs.writeFile(filedestination, req.file.buffer)
         product.updateAt = new Date();
         product.imageURL = "/images/" + req.params.id + path.extname(req.file.originalname);
