@@ -4,6 +4,7 @@ const uuidv1 = require("uuid/v1")
 const fs = require("fs-extra");
 const path = require("path");
 const multer = require("multer");
+const { check, validationResult, sanitizeBody} = require("express-validator");
 
 const productsFilePath = path.join(__dirname, "products.json");
 const reviewsFilePath = path.join(__dirname,"../reviews/reviews.json")
@@ -52,7 +53,15 @@ router.get("/:id/reviews", async (req,res)=>{
     }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", 
+    [check("name").isLength({ min: 4}).withMessage("Name should have at least 4 character"),
+    check("category").exists().withMessage("Category is missing"),
+    check("description").isLength({min: 50, max: 1000}).withMessage("Description is between 50 and 1000 characters"),
+    check("price").isNumeric().withMessage("must be a number")],
+    sanitizeBody("price").toFloat(),
+    async (req, res) => {
+    const errors = validationResult(req)
+    if(errors.isEmpty()){
     const products = await readFile();
     let newProduct = {
         ...req.body,
@@ -64,6 +73,9 @@ router.post("/", async (req, res) => {
     products.push(newProduct);
     await fs.writeFile(productsFilePath, JSON.stringify(products));
     res.send(newProduct);
+    }else{
+        res.status("404").send(errors)
+    }
 })
 
 const multerConfig = multer({});
@@ -74,7 +86,7 @@ router.post("/:id/upload", multerConfig.single("prodPic"), async (req, res) => {
         const filedestination = path.join(__dirname,"../../../images", req.params.id + path.extname(req.file.originalname))
         await fs.writeFile(filedestination, req.file.buffer)
         product.updateAt = new Date();
-        product.imageURL = req.params.id + path.extname(req.file.originalname);
+        product.imageURL = "/images/"+ req.params.id + path.extname(req.file.originalname);
         await fs.writeFile(productsFilePath, JSON.stringify(products))
         res.send(product)
     } else {
